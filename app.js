@@ -19,5 +19,16 @@ app.get('/',(req,res) => {
 app.get('/insurance',(req,res) => {
   res.render('insurance')
 });
-
+app.get('/funeral',(req,res) => {
+  res.render('funeralHD')
+});
+app.get('/Benificiary',(req,res) => {
+  res.render('Beneficiary')
+});
+app.get('/Health',(req,res) => {
+  res.render('HealthDep')
+});
+app.get('/Hospital',(req,res) => {
+  res.render('Hospital')
+});
 app.listen(3000);
