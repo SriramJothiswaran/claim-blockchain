@@ -31,4 +31,4 @@ app.get('/Health',(req,res) => {
 app.get('/Hospital',(req,res) => {
   res.render('Hospital')
 });
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
