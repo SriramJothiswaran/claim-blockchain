@@ -30,7 +30,7 @@ app.get('/Benificiary',(req,res) => {
 app.get('/Health',(req,res) => {
   res.render('HealthDep')
 });
-app.get('/Hospital',(req,res) => {
-  res.render('Hospital')
+app.get('/hospital',(req,res) => {
+  res.render('hospital');
 });
 app.listen(port);
