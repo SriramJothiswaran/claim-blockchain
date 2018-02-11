@@ -1,0 +1,17 @@
+html {
+    background-color: #bcbcbc;
+}
+
+.loginBox{
+  position: absolute;
+  top: 40%;
+  left: 40%;
+}
+
+.input-spacing{
+  padding: 20px;
+}
+
+.is-horizontal-center {
+  justify-content: center;
+}
