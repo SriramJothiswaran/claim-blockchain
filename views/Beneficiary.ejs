@@ -77,7 +77,7 @@
     </div>
     <div class='card-content is-flex is-horizontal-center'>
       <button type="submit" class="button is-black is-medium">Submit</button>
-      <a class="button is-black is-medium" href="/ssn" style="margin-left:40px">Next</a>
+      <a class="button is-black is-medium" href="/ssn2" style="margin-left:40px">Next</a>
 
 
     </div>
@@ -108,25 +108,20 @@
   </div>
   </div>
   <div class="tile is-4 is-vertical is-parent">
-<div class="tile is-child notification is-ripple">
-<p class="title">Ripple(Network Price)</p>
-<p><strong>Price (INR) : &#x20b9; <span id="xrpvalueinr">75.68</span></strong></p>
-<p><strong>Price (USD) : $ <span id="xrpvalueusd">1.18</span></strong></p>
-<p>Percentage Change (1h) : <span id="xrp1hchangered" class="tag is-danger">-1.72 %</span></p>
-<p>Percentage Change (24h) : <span id="xrp24hchangegreen" class="tag is-success">+3.52 %</span></p>
-<p>Available Supply : <span id="xrpavail">39,009,215,838.00</span> XRP </p>
-<p>Total Supply : <span id="xrptotal">99,992,725,510.00</span> XRP </p>
-<p>Maximum Supply : <span id="xrpmax">100,000,000,000.00</span> XRP </p>
-<p>Market Cap (INR) : &#x20b9; <span id="xrpcap">2,952,122,545,198.00</span> </p>
-<p>24h Volume (INR) : &#x20b9; <span id="xrpday">66,638,498,800.00</span> </p>
-<p>Last Updated : <span id="xrptime">17th February 2018, 20:29</span> IST </p>
+<div class="tile is-child notification is-ripple" id="benBox" style="visibility:hidden">
+<p class="title">Beneficiary</p>
 <hr>
-<p class="title">BtcxIndia Price</p>
-<div id="loader" class="help"></div>
-<p> <strong> Price : &#x20b9;<span id="btcxvalueinr"> </span></strong>
-<p>Last Traded Price : &#x20b9; <span id="btcxtrade"></span> </p>
-<p>Total Volume (24h) : <span id="btcxvol"></span> XRP</p>
-</p>
+<p id="name_insured1"></p>
+<p id="ssn11"></p>
+<p id="policy_number1"></p>
+<p id="cause_death1"></p>
+<p id="beneficiary_name1"></p>
+<p id="relation1"></p>
+<p id="ssn21"></p>
+<p id="bank_details1"></p>
+<p id="funeral_location1"></p>
+<p id="funeral_date1"></p>
+<p id="funeral_time1"></p>
 </div>
 </div>
 
@@ -145,25 +140,20 @@ $("#beneficiaryForm").submit(function(e) {
          data: serializeData, // serializes the form's elements.
          success: function(data)
          {
-             document.getElementById('resTxnId').innerHTML = 'Transaction ID : ' + data.id;
-             document.getElementById('resPatientId').innerHTML = 'Patient ID : ' + data.asset.data.patient_id.patient_id;
-             document.getElementById('resPatientName').innerHTML = 'Address 1 : ' + data.asset.data.patient_id.adress_1;
-             document.getElementById('resDOB').innerHTML = 'SSN : ' + data.asset.data.patient_id.ssn;
-             document.getElementById('resGender').innerHTML = 'Doctor : ' + data.asset.data.patient_id.doctor;
-             document.getElementById('resAddress1').innerHTML = 'ID : ' + data.asset.data.patient_id.insured_name;
-             document.getElementById('resAddress2').innerHTML = 'ID : ' + data.asset.data.patient_id.adress2;
-             document.getElementById('resState').innerHTML = 'ID : ' + data.asset.data.patient_id.death_date;
-             document.getElementById('resZipCode').innerHTML = 'ID : ' + data.asset.data.patient_id.doctor_number;
-             document.getElementById('resSSN').innerHTML = 'ID : ' + data.asset.data.patient_id.birth_date;
-             document.getElementById('resDeathDate').innerHTML = 'ID : ' + data.asset.data.patient_id.state;
-             document.getElementById('resTimeOfDeath').innerHTML = 'ID : ' + data.asset.data.patient_id.death_time;
-             document.getElementById('resCause').innerHTML = 'ID : ' + data.asset.data.patient_id.death_approval;
-             document.getElementById('resDoctor').innerHTML = 'ID : ' + data.asset.data.patient_id.zipcode;
-             document.getElementById('resDocReg').innerHTML = 'ID : ' + data.asset.data.patient_id.cause;
-             document.getElementById('resDeathDate').innerHTML = 'ID : ' + data.asset.data.patient_id.death_time_approval;
+             document.getElementById('name_insured1').innerHTML = 'name_insured : ' + data.beneficiary[0].insured_name;
+             document.getElementById('ssn11').innerHTML = 'ssn : ' + data.beneficiary[0].ssn;
+             document.getElementById('policy_number1').innerHTML = 'policy_number : ' + data.beneficiary[0].policy_number;
+             document.getElementById('cause_death1').innerHTML = 'cause_death : ' + data.beneficiary[0].cause;
+             document.getElementById('beneficiary_name1').innerHTML = 'beneficiary_name : ' + data.beneficiary[0].beneficiary_name;
+             document.getElementById('relation1').innerHTML = 'relation : ' + data.beneficiary[0].relation;
+             document.getElementById('ssn21').innerHTML = 'beneficiary_ssn : ' + data.beneficiary[0].beneficiary_ssn;
+             document.getElementById('bank_details1').innerHTML = 'bank_details : ' + data.beneficiary[0].bank_details;
+             document.getElementById('funeral_location1').innerHTML = 'funeral_location : ' + data.beneficiary[0].funeral_location;
+             document.getElementById('funeral_date1').innerHTML = 'funeral_date : ' + data.beneficiary[0].funeral_date;
+             document.getElementById('funeral_time1').innerHTML = 'funeral_time : ' + data.beneficiary[0].funeral_time;
 
 
-             document.getElementById('blockShow').style.visibility = 'visible';
+             document.getElementById('benBox').style.visibility = 'visible';
          }
        });
 

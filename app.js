@@ -218,6 +218,10 @@ app.post('/bentransaction', (req,res) => {
 
 app.get('/ssn',(req,res) => {
   res.render('ssn',{'navigation':'/benificiary'});
-})
+});
+
+app.get('/ssn2',(req,res) => {
+  res.render('ssn',{'navigation':'/funeral'});
+});
 
 app.listen(port);
