@@ -186,6 +186,35 @@ let dbInsert = (txCreatePatientDataSigned) => {
            console.log(e)
        });
 };
+app.post('/bentransaction', (req,res) => {
+
+  var bentxn = new claimModel({
+    beneficiary : [{
+      ssn: req.body.ssn,
+      insured_name: req.body.insured_name,
+      policy_number: req.body.policy_number,
+      cause: req.body.cause,
+      beneficiary_name: req.body.beneficiary_name,
+      relation: req.body.relation,
+      beneficiary_ssn: req.body.beneficiary_ssn,
+      bank_details: req.body.bank_details,
+      funeral_location: req.body.funeral_location,
+      funeral_date: req.body.funeral_date,
+      funeral_time: req.body.funeral_time
+
+    }]
+  });
+
+  bentxn.save().then(function (doc) {
+
+           res.send(doc);
+       }, function (e) {
+           console.log(e)
+       });
+
+});
+
+
 
 app.get('/ssn',(req,res) => {
   res.render('ssn',{'navigation':'/benificiary'});
