@@ -20,88 +20,161 @@
       </div>
     </div>
   </section>
-  <form class="" action="index.html" method="post">
+  <form id="hospitalForm">
     <div class="columns">
       <div class="column">
         <div class="control input-spacing">
           <label for="patientid">Patient ID Number</label>
-          <input class="input is-medium" id="patientid" type="text" placeholder="name">
+          <input class="input is-medium" id="patientid" name="patientid" type="text" placeholder="name">
         </div>
         <div class="control input-spacing">
           <label for="adress1">Address line1</label>
-          <input class="input is-medium" id="adress1" type="text">
+          <input class="input is-medium" id="adress1" name="adress1" type="text">
         </div>
         <div class="control input-spacing">
           <label for="ssn">SSN</label>
-          <input class="input is-medium" id="ssn" type="text">
+          <input class="input is-medium" id="ssn" name="ssn" type="text">
         </div>
         <div class="control input-spacing">
           <label for="doctor">Doctor of Investigation</label>
-          <input class="input is-medium" id="doctor" type="text">
+          <input class="input is-medium" id="doctor" name="doctor" type="text">
         </div>
       </div>
       <div class="column">
         <div class="control input-spacing">
           <label for="insuredName">Patient Name</label>
-          <input class="input is-medium" id="insuredName" type="text" placeholder="name">
+          <input class="input is-medium" id="insuredName" name="insuredName" type="text" placeholder="name">
         </div>
         <div class="control input-spacing">
           <label for="adress2">Address line2</label>
-          <input class="input is-medium" id="adress2" type="text">
+          <input class="input is-medium" id="adress2" name="adress2" type="text">
         </div>
         <div class="control input-spacing">
           <label for="deathdate">Death Date</label>
-          <input class="input is-medium" id="deathdate" type="text">
+          <input class="input is-medium" id="deathdate" name="deathdate" type="text">
         </div>
         <div class="control input-spacing">
-          <label for="Doctornumber">Doctor Registration Number</label>
-          <input class="input is-medium" id="Doctornumber" type="text">
+          <label for="doctornumber">Doctor Registration Number</label>
+          <input class="input is-medium" id="doctornumber" name="doctornumber" type="text">
         </div>
       </div>
       <div class="column">
         <div class="control input-spacing">
           <label for="birthdate">Date of Birth</label>
-          <input class="input is-medium" id="birthdate" type="text">
+          <input class="input is-medium" id="birthdate" name="birthdate" type="text">
         </div>
         <div class="control input-spacing">
           <label for="state">State</label>
-          <input class="input is-medium" id="state" type="text">
+          <input class="input is-medium" id="state" name="state" type="text">
         </div>
         <div class="control input-spacing">
           <label for="deathtime">Time of Death</label>
-          <input class="input is-medium" id="deathtime" type="text">
+          <input class="input is-medium" id="deathtime" name="deathtime" type="text">
         </div>
         <div class="control input-spacing">
           <label for="deathapproval">Date of Death Approval</label>
-          <input class="input is-medium" id="deathapproval" type="text">
+          <input class="input is-medium" id="deathapproval" name="deathapproval" type="text">
         </div>
       </div>
       <div class="column">
         <div class="control input-spacing">
-          <label for="Gender">Gender </label>
-          <input class="input is-medium" id="Gender" type="text">
+          <label for="gender">Gender </label>
+          <input class="input is-medium" id="gender" name="gender" type="text">
         </div>
         <div class="control input-spacing">
           <label for="zipcode">Zip Code</label>
-          <input class="input is-medium" id="zipcode" type="text">
+          <input class="input is-medium" id="zipcode" name="zipcode" type="text">
         </div>
         <div class="control input-spacing">
           <label for="cause">Cause of Death</label>
-          <input class="input is-medium" id="cause" type="text">
+          <input class="input is-medium" id="cause" name="cause" type="text">
         </div>
         <div class="control input-spacing">
           <label for="deathtimeapproval">Time of Death Approval</label>
-          <input class="input is-medium" id="deathtimeapproval" type="text">
+          <input class="input is-medium" id="deathtimeapproval" name="deathtimeapproval" type="text">
         </div>
       </div>
     </div>
     <div class='card-content is-flex is-horizontal-center'>
-      <a class="button is-black is-medium">Submit</a>
-
+      <button class="button is-black is-medium">Submit</button>
     </div>
+
+    <div class="tile is-ancestor" style="visibility:hidden" id="blockShow">
+      <div class="tile is-vertical is-8">
+        <div class="tile">
+          <div class="tile is-parent is-vertical">
+          </div>
+          <div class="tile is-parent">
+            <article class="tile is-child notification is-info">
+                <p id="resTxnId"></p>
+                <hr>
+                <p id="resPatientId"></p>
+                <p id="resPatientName"></p>
+                <p id="resDOB"></p>
+                <p id="resGender"></p>
+                <p id="resAddress1"></p>
+                <p id="resAddress2"></p>
+                <p id="resState"></p>
+                <p id="resZipCode"></p>
+                <p id="resSSN"></p>
+                <p id="resDeathDate"></p>
+                <p id="resTimeOfDeath"></p>
+                <p id="resCause"></p>
+                <p id="resDoctor"></p>
+                <p id="resDocReg"></p>
+                <p id="resDeathDate"></p>
+                <p id="resTimeApproval"></p>
+
+
+
+
+            </article>
+          </div>
+        </div>
+        <div class="tile is-parent">
+        </div>
+      </div>
+      <div class="tile is-parent">
+      </div>
+    </div>
+
   </form>
 
 
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$("#hospitalForm").submit(function(e) {
+      console.log('sumbitted');
+      $.ajax({
+         type: "POST",
+         url: '/transaction',
+         data: $("#hospitalForm").serialize(), // serializes the form's elements.
+         success: function(data)
+         {
+             document.getElementById('resTxnId').innerHTML = 'Transaction ID : ' + data.id;
+             document.getElementById('resPatientId').innerHTML = 'Patient ID : ' + data.asset.data.patient_id.patient_id;
+             document.getElementById('resPatientName').innerHTML = 'Address 1 : ' + data.asset.data.patient_id.adress_1;
+             document.getElementById('resDOB').innerHTML = 'SSN : ' + data.asset.data.patient_id.ssn;
+             document.getElementById('resGender').innerHTML = 'Doctor : ' + data.asset.data.patient_id.doctor;
+             document.getElementById('resAddress1').innerHTML = 'ID : ' + data.asset.data.patient_id.insured_name;
+             document.getElementById('resAddress2').innerHTML = 'ID : ' + data.asset.data.patient_id.adress2;
+             document.getElementById('resState').innerHTML = 'ID : ' + data.asset.data.patient_id.death_date;
+             document.getElementById('resZipCode').innerHTML = 'ID : ' + data.asset.data.patient_id.doctor_number;
+             document.getElementById('resSSN').innerHTML = 'ID : ' + data.asset.data.patient_id.birth_date;
+             document.getElementById('resDeathDate').innerHTML = 'ID : ' + data.asset.data.patient_id.state;
+             document.getElementById('resTimeOfDeath').innerHTML = 'ID : ' + data.asset.data.patient_id.death_time;
+             document.getElementById('resCause').innerHTML = 'ID : ' + data.asset.data.patient_id.death_approval;
+             document.getElementById('resDoctor').innerHTML = 'ID : ' + data.asset.data.patient_id.zipcode;
+             document.getElementById('resDocReg').innerHTML = 'ID : ' + data.asset.data.patient_id.cause;
+             document.getElementById('resDeathDate').innerHTML = 'ID : ' + data.asset.data.patient_id.death_time_approval;
 
+
+             document.getElementById('blockShow').style.visibility = 'visible';
+         }
+       });
+
+  e.preventDefault();
+});
+</script>
 </html>

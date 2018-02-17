@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start" : "node app.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,10 +18,12 @@
   },
   "homepage": "https://github.com/SriramJothiswaran/claim-blockchain#readme",
   "dependencies": {
+    "bigchaindb-driver": "^3.2.0",
     "body-parser": "^1.18.2",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "moment": "^2.20.1",
+    "mongoose": "^5.0.6",
     "request": "^2.83.0"
   }
 }
