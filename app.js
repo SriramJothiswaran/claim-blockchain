@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require("request");
 var moment = require('moment');
+const port = process.env.PORT || 3000;
+
 
 
 
@@ -19,5 +21,16 @@ app.get('/',(req,res) => {
 app.get('/insurance',(req,res) => {
   res.render('insurance')
 });
-
-app.listen(3000);
+app.get('/funeral',(req,res) => {
+  res.render('funeralHD')
+});
+app.get('/Benificiary',(req,res) => {
+  res.render('Beneficiary')
+});
+app.get('/Health',(req,res) => {
+  res.render('HealthDep')
+});
+app.get('/hospital',(req,res) => {
+  res.render('hospital');
+});
+app.listen(port);
