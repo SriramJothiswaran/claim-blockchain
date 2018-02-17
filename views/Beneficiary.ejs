@@ -20,12 +20,12 @@
       </div>
     </div>
   </section>
-  <form class="" action="index.html" method="post">
+  <form id="" action="index.html" method="post">
     <div class="columns">
       <div class="column">
         <div class="control input-spacing">
           <label for="insuredName">Name of Insured</label>
-          <input class="input is-medium" id="insuredName" type="text" placeholder="name">
+          <input class="input is-medium" id="insuredName" value="<%=doc.hospital[0].insured_name%>" type="text" placeholder="name" disabled>
         </div>
         <div class="control input-spacing">
           <label for="benificiaryName">Benificiary Name</label>
@@ -39,7 +39,7 @@
       <div class="column">
         <div class="control input-spacing">
           <label for="ssn">SSN</label>
-          <input class="input is-medium" id="ssn" type="text">
+          <input class="input is-medium" id="ssn" value="<%=doc.hospital[0].ssn%>" type="text" disabled>
         </div>
         <div class="control input-spacing">
           <label for="relation">Relation</label>
@@ -53,7 +53,7 @@
       <div class="column">
         <div class="control input-spacing">
           <label for="policyNumber">Policy Number</label>
-          <input class="input is-medium" id="policyNumber" type="text">
+          <input class="input is-medium" id="policyNumber" value="<%=doc.hospital[0].adress2%>" type="text" disabled>
         </div>
         <div class="control input-spacing">
           <label for="benificiarySSN">SSN</label>
@@ -67,7 +67,7 @@
       <div class="column">
         <div class="control input-spacing">
           <label for="cause">Cause of Death</label>
-          <input class="input is-medium" id="cause" type="text">
+          <input class="input is-medium" id="cause" value="<%=doc.hospital[0].cause%>"  type="text" disabled>
         </div>
         <div class="control input-spacing">
           <label for="bankDetails">Bank Details</label>
@@ -76,11 +76,37 @@
       </div>
     </div>
     <div class='card-content is-flex is-horizontal-center'>
-      <a class="button is-black is-medium">Save</a>
+      <a class="button is-black is-medium">Submit</a>
+      <a class="button is-black is-medium" href="/ssn" style="margin-left:40px">Next</a>
+
 
     </div>
   </form>
-
+  <div class="tile is-ancestor">
+  <div class="tile is-4 is-vertical is-parent">
+  <div class="tile is-child notification is-bitcoin ">
+  <p class="title">Hospital</p>
+  <hr>
+  <p><strong>Transaction Id: <span id="txnid"> <%=doc.txnid%><span /></strong></p>
+  <hr>
+  <p id="resPatientId">patientid: <%=doc.hospital[0].patient_id%></p>
+  <p id="resPatientName">patient name: <%=doc.hospital[0].insured_name%></p>
+  <p id="resDOB">dob: <%=doc.hospital[0].birth_date%></p>
+  <p id="resGender">gender: <%=doc.hospital[0].gender%></p>
+  <p id="resAddress1">address: <%=doc.hospital[0].adress_1%></p>
+  <p id="resAddress2">policyno: <%=doc.hospital[0].adress2%></p>
+  <p id="resState">state: <%=doc.hospital[0].state%></p>
+  <p id="resZipCode">zipcode: <%=doc.hospital[0].zipcode%></p>
+  <p id="resSSN">ssn: <%=doc.hospital[0].ssn%></p>
+  <p id="resDeathDate">deathdate: <%=doc.hospital[0].death_date%></p>
+  <p id="resTimeOfDeath">timeofdeath: <%=doc.hospital[0].death_time%></p>
+  <p id="resCause">cause: <%=doc.hospital[0].cause%></p>
+  <p id="resDoctor">doctor: <%=doc.hospital[0].doctor%></p>
+  <p id="resDocReg">doctorregno: <%=doc.hospital[0].doctor_number%></p>
+  <p id="resDeathDate">deathdateapproval: <%=doc.hospital[0].death_approval%></p>
+  <p id="resTimeApproval">deathtimeapproval: <%=doc.hospital[0].death_time_approval%></p>
+  </div>
+  </div>
 
 </body>
 
