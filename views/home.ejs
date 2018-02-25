@@ -16,7 +16,7 @@
       <hr>
       <div class="field">
       <p class="control has-icons-left has-icons-right">
-        <input class="input" type="email" placeholder="Username">
+        <input class="input" type="email" id="username" placeholder="Username">
         <span class="icon is-small is-left">
           <i class="fas fa-envelope"></i>
         </span>
@@ -27,7 +27,7 @@
     </div>
     <div class="field">
       <p class="control has-icons-left">
-        <input class="input" type="password" placeholder="Password">
+        <input class="input" type="password" id="password" placeholder="Password">
         <span class="icon is-small is-left">
           <i class="fas fa-lock"></i>
         </span>
@@ -35,7 +35,7 @@
     </div>
     <div class="field">
       <p class="control">
-        <button class="button is-success">
+        <button class="button is-success" onclick="auth()">
           Login
         </button>
       </p>
@@ -44,5 +44,13 @@
   </div>
 
 </body>
-
+<script type="text/javascript">
+  function auth(){
+    if(document.getElementById('username').value === "admin" && document.getElementById('password').value === "admin"){
+      window.location = "/hospital";
+    }else{
+      alert('Invalid Credentials')
+    }
+  }
+</script>
 </html>

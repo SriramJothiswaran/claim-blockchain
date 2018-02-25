@@ -44,16 +44,9 @@ const claimSchema = new mongoose.Schema({
       funeral_date : String,
       funeral_time : String
     }],
-    funeral: [{
-      confirmation: String
-
-    }],
-    home: [{
-      confirmation: String
-    }],
-    insurance: [{
-      confirmation: String
-    }]
+    funeral_confirmation : String,
+    home_confirmation : String,
+    insurance_confirmation : String
 });
 
 const claimModel = mongoose.model('claimModel', claimSchema);
@@ -247,11 +240,10 @@ app.post('/bentransaction', (req,res) => {
 
 
 app.post('/funeraltransaction', (req,res) => {
-  var  conditions  = { '$set': {
-    "funeral.$.confirmation" : req.body.confirmation,
-  }};
 
-  claimModel.update({ "hospital.ssn": req.body.ssn}, conditions,function (err, docs){
+  console.log(req.body.ssn);
+
+  claimModel.update({ "hospital.ssn": req.body.ssn}, {$set: { funeral_confirmation: req.body.confirmation }},function (err, docs){
     if(!err){
         res.send(req.body.confirmation);
 
@@ -267,11 +259,13 @@ app.post('/funeraltransaction', (req,res) => {
 
 
 app.post('/healthtransaction', (req,res) => {
-  var  conditions  = { '$set': {
-    "home.$.confirmation" : req.body.confirmation,
-  }};
 
-  claimModel.update({ "hospital.ssn": req.body.ssn}, conditions,function (err, docs){
+  console.log(req.body.ssn);
+
+  console.log(req.body.confirmation);
+
+
+  claimModel.update({ "hospital.ssn": req.body.ssn}, {$set: { home_confirmation: req.body.confirmation }},function (err, docs){
     if(!err){
         res.send(req.body.confirmation);
 
@@ -285,11 +279,11 @@ app.post('/healthtransaction', (req,res) => {
 });
 
 app.post('/insurancetransaction', (req,res) => {
-  var  conditions  = { '$set': {
-    "insurance.$.confirmation" : req.body.confirmation,
-  }};
 
-  claimModel.update({ "hospital.ssn": req.body.ssn}, conditions,function (err, docs){
+
+
+
+  claimModel.update({ "hospital.ssn": req.body.ssn}, {$set: { insurance_confirmation: req.body.confirmation }} ,function (err, docs){
     if(!err){
         res.send(req.body.confirmation);
 

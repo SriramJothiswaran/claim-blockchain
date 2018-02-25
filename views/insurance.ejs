@@ -53,7 +53,7 @@
         </div>
         <div class="control input-spacing">
           <label for="benificiarySSN">SSN</label>
-          <input class="input is-medium" id="benificiarySSN" value="<%=doc.beneficiary[0].beneficiary_ssn%>" type="text" disabled>
+          <input class="input is-medium" id="benificiarySSN" value="<%=doc.beneficiary[0].beneficiary_ssn%>" name="ssn" type="text" disabled>
         </div>
       </div>
       <div class="column">
@@ -74,12 +74,93 @@
     </div>
   </form>
 
+  <div class="tile is-ancestor">
+    <div class="tile is-4 is-vertical is-parent">
+      <div class="tile is-child notification is-bitcoin ">
+        <p class="title">Hospital</p>
+        <hr>
+        <p><strong>Transaction Id: <span id="txnid"> <%=doc.txnid%><span /></strong></p>
+        <hr>
+        <p id="resPatientId">patientid:
+          <%=doc.hospital[0].patient_id%>
+        </p>
+        <p id="resPatientName">patient name:
+          <%=doc.hospital[0].insured_name%>
+        </p>
+        <p id="resDOB">dob:
+          <%=doc.hospital[0].birth_date%>
+        </p>
+        <p id="resGender">gender:
+          <%=doc.hospital[0].gender%>
+        </p>
+        <p id="resAddress1">address:
+          <%=doc.hospital[0].adress_1%>
+        </p>
+        <p id="resAddress2">policyno:
+          <%=doc.hospital[0].adress2%>
+        </p>
+        <p id="resState">state:
+          <%=doc.hospital[0].state%>
+        </p>
+        <p id="resZipCode">zipcode:
+          <%=doc.hospital[0].zipcode%>
+        </p>
+        <p id="resSSN">ssn:
+          <%=doc.hospital[0].ssn%>
+        </p>
+        <p id="resDeathDate">deathdate:
+          <%=doc.hospital[0].death_date%>
+        </p>
+        <p id="resTimeOfDeath">timeofdeath:
+          <%=doc.hospital[0].death_time%>
+        </p>
+        <p id="resCause">cause:
+          <%=doc.hospital[0].cause%>
+        </p>
+        <p id="resDoctor">doctor:
+          <%=doc.hospital[0].doctor%>
+        </p>
+        <p id="resDocReg">doctorregno:
+          <%=doc.hospital[0].doctor_number%>
+        </p>
+        <p id="resDeathDate">deathdateapproval:
+          <%=doc.hospital[0].death_approval%>
+        </p>
+        <p id="resTimeApproval">deathtimeapproval:
+          <%=doc.hospital[0].death_time_approval%>
+        </p>
+      </div>
+    </div>
+    <div class="tile is-4 is-vertical is-parent">
+      <div class="tile is-child notification is-bitcoin ">
+        <p class="title">Funeral Home</p>
+        <hr>
+        <p id="resPatientId">Confirmation:
+          <%=doc.funeral_confirmation.toUpperCase()%>
+        </p>
+
+      </div>
+    </div>
+    <div class="tile is-4 is-vertical is-parent">
+      <div class="tile is-child notification is-bitcoin ">
+        <p class="title">Health Department</p>
+        <hr>
+        <p id="resPatientId">Confirmation:
+          <%=doc.home_confirmation.toUpperCase()%>
+        </p>
+
+      </div>
+    </div>
+
 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 $("#insuranceForm").submit(function(e) {
   var serializeData = $("#insuranceForm").serialize();
+  $('input[disabled]').each( function() {
+             serializeData = serializeData + '&' + $(this).attr('name') + '=' + $(this).val();
+         });
       $.ajax({
          type: "POST",
          url: '/insurancetransaction',

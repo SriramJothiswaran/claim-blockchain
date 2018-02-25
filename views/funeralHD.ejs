@@ -39,7 +39,7 @@
       <div class="column">
         <div class="control input-spacing">
           <label for="ssn">SSN</label>
-          <input class="input is-medium" id="ssn" value="<%=doc.beneficiary[0].ssn%>" type="text" disabled>
+          <input class="input is-medium" id="ssn" name="ssn" value="<%=doc.beneficiary[0].ssn%>" type="text" disabled>
         </div>
         <div class="control input-spacing">
           <label for="FuneralDate">Funeral Date</label>
@@ -150,6 +150,9 @@
 <script>
 $("#funeralForm").submit(function(e) {
   var serializeData = $("#funeralForm").serialize();
+  $('input[disabled]').each( function() {
+             serializeData = serializeData + '&' + $(this).attr('name') + '=' + $(this).val();
+         });
       $.ajax({
          type: "POST",
          url: '/funeraltransaction',
