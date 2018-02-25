@@ -20,60 +20,82 @@
       </div>
     </div>
   </section>
-  <form class="" action="index.html" method="post">
+  <form id="insuranceForm">
     <div class="columns">
       <div class="column">
         <div class="control input-spacing">
           <label for="insuredName">Name of Insured</label>
-          <input class="input is-medium" id="insuredName" type="text" placeholder="name">
+          <input class="input is-medium" id="insuredName" value="<%=doc.beneficiary[0].insured_name%>" type="text" placeholder="name" disabled>
         </div>
         <div class="control input-spacing">
           <label for="benificiaryName">Benificiary Name</label>
-          <input class="input is-medium" id="benificiaryName" type="text">
+          <input class="input is-medium" id="benificiaryName" value="<%=doc.beneficiary[0].beneficiary_name%>" type="text" disabled>
         </div>
       </div>
       <div class="column">
         <div class="control input-spacing">
           <label for="ssn">SSN</label>
-          <input class="input is-medium" id="ssn" type="text">
+          <input class="input is-medium" id="ssn" value="<%=doc.beneficiary[0].ssn%>" type="text" disabled>
         </div>
         <div class="control input-spacing">
           <label for="relation">Relation</label>
-          <input class="input is-medium" id="relation" type="text">
+          <input class="input is-medium" id="relation" value="<%=doc.beneficiary[0].relation%>" type="text" disabled>
         </div>
         <div class="control input-spacing">
           <label for="verified">Verified</label>
-          <input class="input is-medium" id="verified" type="text">
+          <input class="input is-medium" id="verified" name="confirmation" type="text" placeholder="Yes/No">
         </div>
       </div>
       <div class="column">
         <div class="control input-spacing">
           <label for="policyNumber">Policy Number</label>
-          <input class="input is-medium" id="policyNumber" type="text">
+          <input class="input is-medium" id="policyNumber" value="<%=doc.beneficiary[0].policy_number%>" type="text" disabled>
         </div>
         <div class="control input-spacing">
           <label for="benificiarySSN">SSN</label>
-          <input class="input is-medium" id="benificiarySSN" type="text">
+          <input class="input is-medium" id="benificiarySSN" value="<%=doc.beneficiary[0].beneficiary_ssn%>" type="text" disabled>
         </div>
       </div>
       <div class="column">
         <div class="control input-spacing">
           <label for="cause">Cause of Death</label>
-          <input class="input is-medium" id="cause" type="text">
+          <input class="input is-medium" id="cause" value="<%=doc.beneficiary[0].cause%>" type="text" disabled>
         </div>
         <div class="control input-spacing">
           <label for="bankDetails">Bank Details</label>
-          <input class="input is-medium" id="bankDetails" type="text">
+          <input class="input is-medium" id="bankDetails" value="<%=doc.beneficiary[0].bank_details%>" type="text" disabled>
         </div>
       </div>
     </div>
     <div class='card-content is-flex is-horizontal-center'>
-      <a class="button is-black is-medium">Save</a>
+      <button type="submit" class="button is-black is-medium">Submit</button>
+
 
     </div>
   </form>
 
 
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$("#insuranceForm").submit(function(e) {
+  var serializeData = $("#insuranceForm").serialize();
+      $.ajax({
+         type: "POST",
+         url: '/insurancetransaction',
+         data: serializeData, // serializes the form's elements.
+         success: function(data)
+         {
+           if(data === 'yes' || data ==='Yes' || data === 'YES'){
+             alert('Insurance Accepted ! And asset has been transferred to Beneficiary')
+           }
+         }
+
+
+       });
+
+  e.preventDefault();
+});
+</script>
 
 </html>

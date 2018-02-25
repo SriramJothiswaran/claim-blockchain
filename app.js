@@ -32,13 +32,27 @@ const claimSchema = new mongoose.Schema({
 
     }],
     beneficiary: [{
-
+      ssn : String,
+      insured_name : String,
+      policy_number : String,
+      cause : String,
+      beneficiary_name : String,
+      relation : String,
+      beneficiary_ssn : String,
+      bank_details : String,
+      funeral_location : String,
+      funeral_date : String,
+      funeral_time : String
     }],
     funeral: [{
+      confirmation: String
 
     }],
     home: [{
-
+      confirmation: String
+    }],
+    insurance: [{
+      confirmation: String
     }]
 });
 
@@ -68,10 +82,20 @@ app.get('/',(req,res) => {
   res.render('home')
 });
 app.get('/insurance',(req,res) => {
-  res.render('insurance')
+  let ssn = req.query.ssn;
+  claimModel.findOne({ "hospital.ssn": ssn}, function (err, doc){
+    res.render('insurance',{doc: doc});
+  });
 });
 app.get('/funeral',(req,res) => {
-  res.render('funeralHD')
+  let ssn = req.query.ssn;
+  console.log(ssn);
+  claimModel.findOne({ "beneficiary.ssn": ssn}, function (err, doc){
+    claimModel.findOne({ "hospital.ssn": ssn}, function (err, docs){
+      console.log(docs);
+      res.render('funeralHD',{doc: doc,docs: docs});
+    });
+  });
 });
 
 
@@ -85,8 +109,11 @@ app.get('/benificiary',(req,res) => {
 
 
 
-app.get('/Health',(req,res) => {
-  res.render('HealthDep')
+app.get('/health',(req,res) => {
+  let ssn = req.query.ssn;
+  claimModel.findOne({ "hospital.ssn": ssn}, function (err, doc){
+    res.render('HealthDep',{doc: doc});
+  });
 });
 app.get('/hospital',(req,res) => {
   res.render('hospital');
@@ -188,32 +215,92 @@ let dbInsert = (txCreatePatientDataSigned) => {
 };
 app.post('/bentransaction', (req,res) => {
 
-  var bentxn = new claimModel({
-    beneficiary : [{
-      ssn: req.body.ssn,
-      insured_name: req.body.insured_name,
-      policy_number: req.body.policy_number,
-      cause: req.body.cause,
-      beneficiary_name: req.body.beneficiary_name,
-      relation: req.body.relation,
-      beneficiary_ssn: req.body.beneficiary_ssn,
-      bank_details: req.body.bank_details,
-      funeral_location: req.body.funeral_location,
-      funeral_date: req.body.funeral_date,
-      funeral_time: req.body.funeral_time
+  var  conditions  = { '$set': {
+    "beneficiary.$.ssn" : req.body.ssn,
+    "beneficiary.$.insured_name" : req.body.insured_name,
+    "beneficiary.$.policy_number" : req.body.policy_number,
+    "beneficiary.$.cause" : req.body.cause,
+    "beneficiary.$.beneficiary_name" : req.body.beneficiary_name,
+    "beneficiary.$.relation" : req.body.relation,
+    "beneficiary.$.beneficiary_ssn" : req.body.beneficiary_ssn,
+    "beneficiary.$.bank_details" : req.body.bank_details,
+    "beneficiary.$.funeral_location" : req.body.funeral_location,
+    "beneficiary.$.funeral_date" : req.body.funeral_date,
+    "beneficiary.$.funeral_time" : req.body.funeral_time
+  }};
 
-    }]
+  claimModel.update({ "hospital.ssn": req.body.ssn}, conditions,function (err, docs){
+    if(!err){
+      claimModel.findOne({ "hospital.ssn": req.body.ssn},function (err, doc){
+        res.send(doc);
+      });
+
+    }
+
+
+
   });
 
-  bentxn.save().then(function (doc) {
-
-           res.send(doc);
-       }, function (e) {
-           console.log(e)
-       });
 
 });
 
+
+
+app.post('/funeraltransaction', (req,res) => {
+  var  conditions  = { '$set': {
+    "funeral.$.confirmation" : req.body.confirmation,
+  }};
+
+  claimModel.update({ "hospital.ssn": req.body.ssn}, conditions,function (err, docs){
+    if(!err){
+        res.send(req.body.confirmation);
+
+    }
+
+
+
+  });
+
+
+});
+
+
+
+app.post('/healthtransaction', (req,res) => {
+  var  conditions  = { '$set': {
+    "home.$.confirmation" : req.body.confirmation,
+  }};
+
+  claimModel.update({ "hospital.ssn": req.body.ssn}, conditions,function (err, docs){
+    if(!err){
+        res.send(req.body.confirmation);
+
+    }
+
+
+
+  });
+
+
+});
+
+app.post('/insurancetransaction', (req,res) => {
+  var  conditions  = { '$set': {
+    "insurance.$.confirmation" : req.body.confirmation,
+  }};
+
+  claimModel.update({ "hospital.ssn": req.body.ssn}, conditions,function (err, docs){
+    if(!err){
+        res.send(req.body.confirmation);
+
+    }
+
+
+
+  });
+
+
+});
 
 
 app.get('/ssn',(req,res) => {
@@ -222,6 +309,14 @@ app.get('/ssn',(req,res) => {
 
 app.get('/ssn2',(req,res) => {
   res.render('ssn',{'navigation':'/funeral'});
+});
+
+app.get('/ssn3',(req,res) => {
+  res.render('ssn',{'navigation':'/health'});
+});
+
+app.get('/ssn4',(req,res) => {
+  res.render('ssn',{'navigation':'/insurance'});
 });
 
 app.listen(port);

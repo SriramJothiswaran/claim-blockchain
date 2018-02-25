@@ -20,72 +20,95 @@
       </div>
     </div>
   </section>
-  <form class="" action="index.html" method="post">
+  <form id="healthForm">
     <div class="columns">
       <div class="column">
         <div class="control input-spacing">
           <label for="insuredName">Deceased Name</label>
-          <input class="input is-medium" id="insuredName" type="text" placeholder="name">
+          <input class="input is-medium" id="insuredName" value="<%=doc.hospital[0].insured_name%>" type="text" placeholder="name" disabled>
         </div>
         <div class="control input-spacing">
           <label for="cause">Cause of Death</label>
-          <input class="input is-medium" id="cause" type="text">
+          <input class="input is-medium" id="cause" value="<%=doc.hospital[0].cause%>" type="text" disabled>
         </div>
         <div class="control input-spacing">
           <label for="adress2">Address line2</label>
-          <input class="input is-medium" id="adress2" type="text">
+          <input class="input is-medium" id="adress2" value="<%=doc.hospital[0].adress2%>" type="text" disabled>
         </div>
       </div>
       <div class="column">
         <div class="control input-spacing">
-          <label for="ssn">Age</label>
-          <input class="input is-medium" id="Age" type="text">
+          <label for="ssn">DOB</label>
+          <input class="input is-medium" id="dob" value="<%=doc.hospital[0].birth_date%>" type="text" disabled>
         </div>
         <div class="control input-spacing">
           <label for="deathdate">Death Date</label>
-          <input class="input is-medium" id="deathdate" type="text">
+          <input class="input is-medium" id="deathdate" value="<%=doc.hospital[0].death_date%>" type="text" disabled>
         </div>
         <div class="control input-spacing">
           <label for="state">State</label>
-          <input class="input is-medium" id="state" type="text">
+          <input class="input is-medium" id="state" value="<%=doc.hospital[0].state%>" type="text" disabled>
         </div>
       </div>
       <div class="column">
         <div class="control input-spacing">
           <label for="Gender">Gender </label>
-          <input class="input is-medium" id="Gender" type="text">
+          <input class="input is-medium" id="Gender" value="<%=doc.hospital[0].gender%>" type="text" disabled>
         </div>
         <div class="control input-spacing">
           <label for="deathtime">Death Time</label>
-          <input class="input is-medium" id="deathtime" type="text">
+          <input class="input is-medium" id="deathtime" value="<%=doc.hospital[0].death_time%>" type="text" disabled>
         </div>
         <div class="control input-spacing">
           <label for="zipcode">Zip Code</label>
-          <input class="input is-medium" id="zipcode" type="text">
+          <input class="input is-medium" id="zipcode" value="<%=doc.hospital[0].zipcode%>" type="text" disabled>
         </div>
       </div>
       <div class="column">
         <div class="control input-spacing">
           <label for="ssn">SSN</label>
-          <input class="input is-medium" id="ssn" type="text">
+          <input class="input is-medium" id="ssn" value="<%=doc.hospital[0].ssn%>" name="ssn" type="text" disabled>
         </div>
         <div class="control input-spacing">
           <label for="adress1">Address line1</label>
-          <input class="input is-medium" id="adress1" type="text">
+          <input class="input is-medium" id="adress1" value="<%=doc.hospital[0].adress_1%>" type="text" disabled>
         </div>
         <div class="control input-spacing">
-          <label for="issuecertificate">Issue Death Certificate</label>
-          <input class="input is-medium" id="issuecertificate" type="text">
+          <label for="confirmation">Issue Death Certificate</label>
+          <input class="input is-medium" id="confirmation" name="confirmation"  type="text" placeholder="Yes/No" >
         </div>
       </div>
     </div>
     <div class='card-content is-flex is-horizontal-center'>
-      <a class="button is-black is-medium">Save</a>
+      <button class="button is-black is-medium">Submit</button>
+      <a class="button is-black is-medium" href="/ssn4" style="margin-left:40px">Next</a>
+
 
     </div>
   </form>
 
 
+
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+$("#healthForm").submit(function(e) {
+  var serializeData = $("#healthForm").serialize();
+      $.ajax({
+         type: "POST",
+         url: '/healthtransaction',
+         data: serializeData, // serializes the form's elements.
+         success: function(data)
+         {
+           if(data === 'yes' || data ==='Yes' || data === 'YES'){
+             alert('Home Department Accepted !')
+           }
+         }
+       });
+
+  e.preventDefault();
+});
+</script>
 
 </html>
